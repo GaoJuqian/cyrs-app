@@ -1,10 +1,8 @@
-import 'package:cyrs_app/page/Music/Music.dart';
 import 'package:flutter/material.dart';
+import 'package:cyrs_app/page/Home/Home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,10 +27,13 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  // 控制Listview滚动
+  static final GlobalKey<HomeState> appKey = GlobalKey();
+
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const Music(),
+    Home(key: appKey),
     const Text(
       'my',
     ),
@@ -40,9 +41,23 @@ class _AppState extends State<App> {
 
   void _onItemTapped(int index) {
     setState(() {
+      switch (index) {
+        case 0:
+          appKey.currentState!.homeKey.currentState!.listController.animateTo(
+            0.0,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+          );
+          break;
+        case 1:
+          break;
+      }
       _selectedIndex = index;
     });
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +68,9 @@ class _AppState extends State<App> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.music_note_outlined),
-            activeIcon: Icon(Icons.music_note),
-            label: '音乐',
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: '首页',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
