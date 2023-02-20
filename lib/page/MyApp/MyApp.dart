@@ -3,6 +3,7 @@ import 'package:cyrs_app/page/Home/Home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,14 +11,12 @@ class MyApp extends StatelessWidget {
       home: const App(),
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        splashColor:Colors.transparent,//点击时的高亮效果设置为透明
-        highlightColor:Colors.transparent,//长按时的扩散效果设置为透明
+        splashColor: Colors.transparent, //点击时的高亮效果设置为透明
+        highlightColor: Colors.transparent, //长按时的扩散效果设置为透明
       ),
     );
   }
 }
-
-
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -43,11 +42,13 @@ class _AppState extends State<App> {
     setState(() {
       switch (index) {
         case 0:
-          appKey.currentState!.homeKey.currentState!.listController.animateTo(
-            0.0,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeOut,
-          );
+          if (_selectedIndex == index) {
+            appKey.currentState!.homeKey.currentState!.listController.animateTo(
+              0.0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeOut,
+            );
+          }
           break;
         case 1:
           break;
@@ -55,9 +56,6 @@ class _AppState extends State<App> {
       _selectedIndex = index;
     });
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
